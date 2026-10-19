@@ -1,149 +1,592 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="uk">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Haldey — Video Editor & Content Creator portfolio" />
-  <title>Haldey — Video Editor & Infographics</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    :root { --bg:#090909; --panel:#111; --card:#171717; --text:#f5f5f5; --muted:#8b8b8b; --line:#282828; --green:#55d98a; }
-    * { box-sizing:border-box; margin:0; padding:0; }
-    html { scroll-behavior:smooth; }
-    body { background:var(--bg); color:var(--text); font-family:Inter,system-ui,sans-serif; }
-    .layout { min-height:100vh; display:flex; }
-    .sidebar { width:390px; min-height:100vh; position:fixed; inset:0 auto 0 0; padding:38px; display:flex; flex-direction:column; justify-content:space-between; background:var(--panel); border-right:1px solid var(--line); }
-    .profile { display:flex; align-items:center; justify-content:space-between; gap:16px; }
-    .identity { display:flex; align-items:center; gap:14px; }
-    .avatar { width:58px; height:58px; border-radius:50%; display:grid; place-items:center; background:linear-gradient(135deg,#393939,#171717); border:1px solid #414141; font-size:22px; font-weight:700; overflow:hidden; }
-    .avatar img { width:100%; height:100%; object-fit:cover; }
-    h1 { font-size:20px; letter-spacing:-.04em; }
-    .role { color:var(--muted); font-size:12px; margin-top:4px; }
-    .languages { display:flex; gap:3px; padding:3px; border:1px solid var(--line); border-radius:999px; }
-    .lang { border:0; border-radius:999px; background:transparent; color:var(--muted); cursor:pointer; padding:6px 9px; font-size:11px; font-weight:700; }
-    .lang.active { background:var(--text); color:#111; }
-    .content { margin-top:48px; display:grid; gap:32px; }
-    .eyebrow { color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.12em; margin-bottom:11px; }
-    .bio { color:#c3c3c3; font-size:14px; line-height:1.7; }
-    .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:9px; }
-    .stat { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:13px 7px; text-align:center; }
-    .stat strong { display:block; font-size:18px; }
-    .stat span { color:var(--muted); font-size:10px; }
-    .tools { display:flex; flex-wrap:wrap; gap:8px; }
-    .tool { color:#d7d7d7; background:#1b1b1b; border:1px solid var(--line); border-radius:7px; padding:7px 10px; font-size:11px; }
-    .bottom { display:grid; gap:16px; }
-    .cta { display:flex; justify-content:center; align-items:center; gap:10px; padding:14px 18px; color:#111; background:var(--text); border-radius:11px; font-size:13px; font-weight:700; text-decoration:none; transition:.2s ease; }
-    .cta:hover { background:#d4d4d4; transform:translateY(-2px); }
-    .clock { display:flex; justify-content:space-between; align-items:center; color:var(--muted); background:var(--card); border:1px solid var(--line); border-radius:10px; padding:11px 13px; font-size:12px; }
-    .location { display:flex; align-items:center; gap:8px; }
-    .dot { width:7px; height:7px; background:var(--green); border-radius:50%; box-shadow:0 0 9px var(--green); }
-    .gallery { width:calc(100% - 390px); margin-left:390px; padding:38px; display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:28px; align-items:start; }
-    .work { overflow:hidden; border:1px solid var(--line); border-radius:18px; background:var(--card); transition:.35s ease; }
-    .work:hover { transform:translateY(-5px); border-color:#494949; }
-    .media { height:350px; overflow:hidden; background:#181818; position:relative; display:grid; place-items:center; }
-    .media img { width:100%; height:100%; display:block; object-fit:contain; transition:transform .6s ease; }
-    .work:hover img { transform:scale(1.03); }
-    .details { display:flex; justify-content:space-between; align-items:end; gap:20px; padding:22px; }
-    .details h2 { font-size:17px; margin-bottom:6px; }
-    .details p { color:var(--muted); font-size:13px; }
-    .tags { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:6px; }
-    .tag { color:var(--muted); border:1px solid var(--line); border-radius:6px; padding:5px 8px; font-size:10px; white-space:nowrap; }
-    @media (max-width:768px) { .layout{display:block}.sidebar{width:100%;min-height:auto;position:relative;padding:26px 18px;border-right:0;border-bottom:1px solid var(--line)}.content{margin-top:35px}.gallery{width:100%;margin:0;padding:18px}.media{height:280px}.details{display:block}.tags{justify-content:flex-start;margin-top:16px} }
-  </style>
-</head>
-<body>
-  <div class="layout">
-    <aside class="sidebar">
-      <div>
-        <div class="profile">
-          <div class="identity">
-            <div class="avatar"><img src="img/avatar.png" alt="Haldey"></div>
-            <div><h1>Haldey</h1><p class="role" data-i18n="role">Video Editor & Creator</p></div>
-          </div>
-          <div class="languages"><button class="lang active" data-lang="ua">UA</button><button class="lang" data-lang="en">EN</button></div>
-        </div>
-        <div class="content">
-          <section><p class="eyebrow" data-i18n="aboutLabel">Про мене</p><p class="bio" data-i18n="bio">Відеомонтажер та контент-мейкер. Створюю динамічні ролики, Reels/TikTok і YouTube-відео, які утримують увагу з перших секунд за допомогою професійної інфографіки та софту (CapCut, Premiere Pro, After Effects).</p></section>
-          <section class="stats"><div class="stat"><strong>50+</strong><span data-i18n="projects">Проєктів</span></div><div class="stat"><strong>10+</strong><span data-i18n="years">Роки досвіду</span></div><div class="stat"><strong>10M+</strong><span data-i18n="views">Переглядів</span></div></section>
-          <section><p class="eyebrow" data-i18n="toolsLabel">Інструменти</p><div class="tools"><span class="tool">CapCut</span><span class="tool">Adobe Premiere</span><span class="tool">Adobe After Effects</span></div></section>
-        </div>
-      </div>
-      <div class="bottom"><a class="cta" href="https://t.me/haldey" target="_blank" rel="noreferrer"><span data-i18n="cta">Обговорити проєкт</span> ↗</a><div class="clock"><span class="location"><i class="dot"></i>Kyiv, Ukraine</span><time id="clock">00:00:00</time></div></div>
-    </aside>
-    <main class="gallery">
-      <article class="work">
-        <div class="media"><img src="img/YouTube1.gif" alt="Інфографіка YouTube 1" loading="lazy"></div>
-        <div class="details">
-          <div><h2 data-i18n="w1title">Інфографіка та моушн для YouTube #1</h2><p data-i18n="w1desc">Динамічна візуалізація даних та анімація інтерфейсу.</p></div>
-          <div class="tags"><span class="tag">After Effects</span><span class="tag">Premiere Pro</span></div>
-        </div>
-      </article>
-      <article class="work">
-        <div class="media"><img src="img/YouTube2.gif" alt="Інфографіка YouTube 2" loading="lazy"></div>
-        <div class="details">
-          <div><h2 data-i18n="w2title">Інфографіка та моушн для YouTube #2</h2><p data-i18n="w2desc">Складні графічні елементи для утримання аудиторії.</p></div>
-          <div class="tags"><span class="tag">After Effects</span><span class="tag">CapCut</span></div>
-        </div>
-      </article>
-      <article class="work">
-        <div class="media"><img src="img/YouTube3.gif" alt="Інфографіка YouTube 3" loading="lazy"></div>
-        <div class="details">
-          <div><h2 data-i18n="w3title">Інфографіка та моушн для YouTube #3</h2><p data-i18n="w3desc">Стильні титри, інтерактивні візуалізації.</p></div>
-          <div class="tags"><span class="tag">After Effects</span><span class="tag">Premiere Pro</span></div>
-        </div>
-      </article>
-      <article class="work">
-        <div class="media"><img src="img/YouTube4.gif" alt="Інфографіка YouTube 4" loading="lazy"></div>
-        <div class="details">
-          <div><h2 data-i18n="w4title">Інфографіка та моушн для YouTube #4</h2><p data-i18n="w4desc">Комплексний супровід та анімаційний дизайн ролика.</p></div>
-          <div class="tags"><span class="tag">After Effects</span><span class="tag">CapCut</span></div>
-        </div>
-      </article>
-    </main>
-  </div>
-  <script>
-    const copy = {
-      ua: {
-        role:'Video Editor & Creator',
-        aboutLabel:'Про мене',
-        bio:'Відеомонтажер та контент-мейкер. Створюю динамічні ролики, Reels/TikTok і YouTube-відео, які утримують увагу з перших секунд за допомогою професійної інфографіки та софту (CapCut, Premiere Pro, After Effects).',
-        projects:'Проєктів',
-        years:'Роки досвіду',
-        views:'Переглядів',
-        toolsLabel:'Інструменти',
-        cta:'Обговорити проєкт',
-        w1title:'Інфографіка та моушн для YouTube #1',
-        w1desc:'Динамічна візуалізація даних та анімація інтерфейсу.',
-        w2title:'Інфографіка та моушн для YouTube #2',
-        w2desc:'Складні графічні елементи для утримання аудиторії.',
-        w3title:'Інфографіка та моушн для YouTube #3',
-        w3desc:'Стильні титри, інтерактивні візуалізації.',
-        w4title:'Інфографіка та моушн для YouTube #4',
-        w4desc:'Комплексний супровід та анімаційний дизайн ролика.'
-      },
-      en: {
-        role:'Video Editor & Creator',
-        aboutLabel:'About me',
-        bio:'Video editor and content creator. I craft dynamic videos, Reels/TikToks, and YouTube content with professional infographics and top software (CapCut, Premiere Pro, After Effects) to maximize retention.',
-        projects:'Projects',
-        years:'Years experience',
-        views:'Views',
-        toolsLabel:'Tools',
-        cta:'Discuss a project',
-        w1title:'YouTube Infographics & Motion #1',
-        w1desc:'Dynamic data visualization and UI animation.',
-        w2title:'YouTube Infographics & Motion #2',
-        w2desc:'Complex graphic elements to boost audience retention.',
-        w3title:'YouTube Infographics & Motion #3',
-        w3desc:'Stylish titles and interactive visual elements.',
-        w4title:'YouTube Infographics & Motion #4',
-        w4desc:'Full motion design support for video content.'
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Haldey — Video Editor & Content Creator portfolio"
+    />
+    <title>Haldey — Video Editor & Infographics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #090909;
+        --panel: #111;
+        --card: #171717;
+        --text: #f5f5f5;
+        --muted: #8b8b8b;
+        --line: #282828;
+        --green: #55d98a;
       }
-    };
-    function setClock(){document.querySelector('#clock').textContent=new Intl.DateTimeFormat('uk-UA',{timeZone:'Europe/Kyiv',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(new Date())} setClock(); setInterval(setClock,1000);
-    document.querySelectorAll('.lang').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.lang').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const lang=copy[btn.dataset.lang];document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=lang[el.dataset.i18n]);document.documentElement.lang=btn.dataset.lang==='ua'?'uk':'en';}));
-  </script>
-</body>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: Inter, system-ui, sans-serif;
+      }
+      .layout {
+        min-height: 100vh;
+        display: flex;
+      }
+      .sidebar {
+        width: 390px;
+        min-height: 100vh;
+        position: fixed;
+        inset: 0 auto 0 0;
+        padding: 38px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background: var(--panel);
+        border-right: 1px solid var(--line);
+      }
+      .profile {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .identity {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .avatar {
+        width: 58px;
+        height: 58px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, #393939, #171717);
+        border: 1px solid #414141;
+        font-size: 22px;
+        font-weight: 700;
+        overflow: hidden;
+      }
+      .avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      h1 {
+        font-size: 20px;
+        letter-spacing: -0.04em;
+      }
+      .role {
+        color: var(--muted);
+        font-size: 12px;
+        margin-top: 4px;
+      }
+      .languages {
+        display: flex;
+        gap: 3px;
+        padding: 3px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+      }
+      .lang {
+        border: 0;
+        border-radius: 999px;
+        background: transparent;
+        color: var(--muted);
+        cursor: pointer;
+        padding: 6px 9px;
+        font-size: 11px;
+        font-weight: 700;
+      }
+      .lang.active {
+        background: var(--text);
+        color: #111;
+      }
+      .content {
+        margin-top: 48px;
+        display: grid;
+        gap: 32px;
+      }
+      .eyebrow {
+        color: var(--muted);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        margin-bottom: 11px;
+      }
+      .bio {
+        color: #c3c3c3;
+        font-size: 14px;
+        line-height: 1.7;
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 9px;
+      }
+      .stat {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 13px 7px;
+        text-align: center;
+      }
+      .stat strong {
+        display: block;
+        font-size: 18px;
+      }
+      .stat span {
+        color: var(--muted);
+        font-size: 10px;
+      }
+      .tools {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .tool {
+        color: #d7d7d7;
+        background: #1b1b1b;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        padding: 7px 10px;
+        font-size: 11px;
+      }
+      .bottom {
+        display: grid;
+        gap: 16px;
+      }
+      .cta {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 18px;
+        color: #111;
+        background: var(--text);
+        border-radius: 11px;
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: 0.2s ease;
+      }
+      .cta:hover {
+        background: #d4d4d4;
+        transform: translateY(-2px);
+      }
+      .clock {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--muted);
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 11px 13px;
+        font-size: 12px;
+      }
+      .location {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .dot {
+        width: 7px;
+        height: 7px;
+        background: var(--green);
+        border-radius: 50%;
+        box-shadow: 0 0 9px var(--green);
+      }
+      .gallery {
+        width: calc(100% - 390px);
+        margin-left: 390px;
+        padding: 38px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 28px;
+        align-items: start;
+      }
+      .work {
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--card);
+        transition: 0.35s ease;
+      }
+      .work:hover {
+        transform: translateY(-5px);
+        border-color: #494949;
+      }
+      .media {
+        height: 350px;
+        overflow: hidden;
+        background: #181818;
+        position: relative;
+        display: grid;
+        place-items: center;
+      }
+      .media img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: contain;
+        transition: transform 0.6s ease;
+      }
+      .work:hover img {
+        transform: scale(1.03);
+      }
+      .details {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 20px;
+        padding: 22px;
+      }
+      .details h2 {
+        font-size: 17px;
+        margin-bottom: 6px;
+      }
+      .details p {
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 6px;
+      }
+      .tag {
+        color: var(--muted);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 5px 8px;
+        font-size: 10px;
+        white-space: nowrap;
+      }
+      @media (max-width: 768px) {
+        .layout {
+          display: block;
+        }
+        .sidebar {
+          width: 100%;
+          min-height: auto;
+          position: relative;
+          padding: 26px 18px;
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+        .content {
+          margin-top: 35px;
+        }
+        .gallery {
+          width: 100%;
+          margin: 0;
+          padding: 18px;
+        }
+        .media {
+          height: 280px;
+        }
+        .details {
+          display: block;
+        }
+        .tags {
+          justify-content: flex-start;
+          margin-top: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <div>
+          <div class="profile">
+            <div class="identity">
+              <div class="avatar">
+                <img src="img/avatar.png" alt="Haldey" />
+              </div>
+              <div>
+                <h1>Haldey</h1>
+                <p class="role" data-i18n="role">Video Editor & Creator</p>
+              </div>
+            </div>
+            <div class="languages">
+              <button class="lang active" data-lang="ua">UA</button
+              ><button class="lang" data-lang="en">EN</button>
+            </div>
+          </div>
+          <div class="content">
+            <section>
+              <p class="eyebrow" data-i18n="aboutLabel">Про мене</p>
+              <p class="bio" data-i18n="bio">
+                Відеомонтажер та контент-мейкер. Створюю динамічні ролики,
+                Reels/TikTok і YouTube-відео, які утримують увагу з перших
+                секунд за допомогою професійної інфографіки та софту (CapCut,
+                Premiere Pro, After Effects).
+              </p>
+            </section>
+            <section class="stats">
+              <div class="stat">
+                <strong>50+</strong><span data-i18n="projects">Проєктів</span>
+              </div>
+              <div class="stat">
+                <strong>10+</strong><span data-i18n="years">Роки досвіду</span>
+              </div>
+              <div class="stat">
+                <strong>10M+</strong><span data-i18n="views">Переглядів</span>
+              </div>
+            </section>
+            <section>
+              <p class="eyebrow" data-i18n="toolsLabel">Інструменти</p>
+              <div class="tools">
+                <span class="tool">CapCut</span
+                ><span class="tool">Adobe Premiere</span
+                ><span class="tool">Adobe After Effects</span>
+              </div>
+            </section>
+          </div>
+        </div>
+        <div class="bottom">
+          <a
+            class="cta"
+            href="https://t.me/haldey"
+            target="_blank"
+            rel="noreferrer"
+            ><span data-i18n="cta">Обговорити проєкт</span> ↗</a
+          >
+          <div class="clock">
+            <span class="location"><i class="dot"></i>Kyiv, Ukraine</span
+            ><time id="clock">00:00:00</time>
+          </div>
+        </div>
+      </aside>
+      <main class="gallery">
+        <article class="work">
+          <div class="media">
+            <img
+              src="img/YouTube1.gif"
+              alt="Інфографіка YouTube 1"
+              loading="lazy"
+            />
+          </div>
+          <div class="details">
+            <div>
+              <h2 data-i18n="w1title">Інфографіка та моушн для YouTube #1</h2>
+              <p data-i18n="w1desc">
+                Динамічна візуалізація даних та анімація інтерфейсу.
+              </p>
+            </div>
+            <div class="tags">
+              <span class="tag">After Effects</span
+              ><span class="tag">Premiere Pro</span>
+            </div>
+          </div>
+        </article>
+        <article class="work">
+          <div class="media">
+            <img
+              src="img/YouTube2.gif"
+              alt="Інфографіка YouTube 2"
+              loading="lazy"
+            />
+          </div>
+          <div class="details">
+            <div>
+              <h2 data-i18n="w2title">Інфографіка та моушн для YouTube #2</h2>
+              <p data-i18n="w2desc">
+                Складні графічні елементи для утримання аудиторії.
+              </p>
+            </div>
+            <div class="tags">
+              <span class="tag">After Effects</span
+              ><span class="tag">CapCut</span>
+            </div>
+          </div>
+        </article>
+        <article class="work">
+          <div class="media">
+            <img
+              src="img/YouTube3.gif"
+              alt="Інфографіка YouTube 3"
+              loading="lazy"
+            />
+          </div>
+          <div class="details">
+            <div>
+              <h2 data-i18n="w3title">Інфографіка та моушн для YouTube #3</h2>
+              <p data-i18n="w3desc">
+                Стильні титри, інтерактивні візуалізації.
+              </p>
+            </div>
+            <div class="tags">
+              <span class="tag">After Effects</span
+              ><span class="tag">Premiere Pro</span>
+            </div>
+          </div>
+        </article>
+        <article class="work">
+          <div class="media">
+            <img
+              src="img/YouTube4.gif"
+              alt="Інфографіка YouTube 4"
+              loading="lazy"
+            />
+          </div>
+          <div class="details">
+            <div>
+              <h2 data-i18n="w4title">Інфографіка та моушн для YouTube #4</h2>
+              <p data-i18n="w4desc">
+                Комплексний супровід та анімаційний дизайн ролика.
+              </p>
+            </div>
+            <div class="tags">
+              <span class="tag">After Effects</span
+              ><span class="tag">CapCut</span>
+            </div>
+          </div>
+        </article>
+        <article class="work">
+          <div class="media">
+            <img
+              src="img/YouTube5.gif"
+              alt="Інфографіка YouTube 5"
+              loading="lazy"
+            />
+          </div>
+          <div class="details">
+            <div>
+              <h2 data-i18n="w4title">Інфографіка та моушн для YouTube #5</h2>
+              <p data-i18n="w4desc">
+                Комплексний супровід та анімаційний дизайн ролика.
+              </p>
+            </div>
+            <div class="tags">
+              <span class="tag">After Effects</span
+              ><span class="tag">CapCut</span>
+            </div>
+          </div>
+        </article>
+        <article class="work">
+          <div class="media">
+            <img
+              src="img/YouTube6.gif"
+              alt="Інфографіка YouTube 6"
+              loading="lazy"
+            />
+          </div>
+          <div class="details">
+            <div>
+              <h2 data-i18n="w4title">Інфографіка та моушн для YouTube #6</h2>
+              <p data-i18n="w4desc">
+                Комплексний супровід та анімаційний дизайн ролика.
+              </p>
+            </div>
+            <div class="tags">
+              <span class="tag">After Effects</span
+              ><span class="tag">CapCut</span>
+            </div>
+          </div>
+        </article>
+        <article class="work">
+          <div class="media">
+            <img
+              src="img/YouTube7.gif"
+              alt="Інфографіка YouTube 7"
+              loading="lazy"
+            />
+          </div>
+          <div class="details">
+            <div>
+              <h2 data-i18n="w4title">Інфографіка та моушн для YouTube #7</h2>
+              <p data-i18n="w4desc">
+                Комплексний супровід та анімаційний дизайн ролика.
+              </p>
+            </div>
+            <div class="tags">
+              <span class="tag">After Effects</span
+              ><span class="tag">CapCut</span>
+            </div>
+          </div>
+        </article>
+      </main>
+    </div>
+    <script>
+      const copy = {
+        ua: {
+          role: "Video Editor & Creator",
+          aboutLabel: "Про мене",
+          bio: "Відеомонтажер та контент-мейкер. Створюю динамічні ролики, Reels/TikTok і YouTube-відео, які утримують увагу з перших секунд за допомогою професійної інфографіки та софту (CapCut, Premiere Pro, After Effects).",
+          projects: "Проєктів",
+          years: "Роки досвіду",
+          views: "Переглядів",
+          toolsLabel: "Інструменти",
+          cta: "Обговорити проєкт",
+          w1title: "Інфографіка та моушн для YouTube #1",
+          w1desc: "Динамічна візуалізація даних та анімація інтерфейсу.",
+          w2title: "Інфографіка та моушн для YouTube #2",
+          w2desc: "Складні графічні елементи для утримання аудиторії.",
+          w3title: "Інфографіка та моушн для YouTube #3",
+          w3desc: "Стильні титри, інтерактивні візуалізації.",
+          w4title: "Інфографіка та моушн для YouTube #4",
+          w4desc: "Комплексний супровід та анімаційний дизайн ролика.",
+        },
+        en: {
+          role: "Video Editor & Creator",
+          aboutLabel: "About me",
+          bio: "Video editor and content creator. I craft dynamic videos, Reels/TikToks, and YouTube content with professional infographics and top software (CapCut, Premiere Pro, After Effects) to maximize retention.",
+          projects: "Projects",
+          years: "Years experience",
+          views: "Views",
+          toolsLabel: "Tools",
+          cta: "Discuss a project",
+          w1title: "YouTube Infographics & Motion #1",
+          w1desc: "Dynamic data visualization and UI animation.",
+          w2title: "YouTube Infographics & Motion #2",
+          w2desc: "Complex graphic elements to boost audience retention.",
+          w3title: "YouTube Infographics & Motion #3",
+          w3desc: "Stylish titles and interactive visual elements.",
+          w4title: "YouTube Infographics & Motion #4",
+          w4desc: "Full motion design support for video content.",
+        },
+      };
+      function setClock() {
+        document.querySelector("#clock").textContent = new Intl.DateTimeFormat(
+          "uk-UA",
+          {
+            timeZone: "Europe/Kyiv",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: false,
+          },
+        ).format(new Date());
+      }
+      setClock();
+      setInterval(setClock, 1000);
+      document.querySelectorAll(".lang").forEach((btn) =>
+        btn.addEventListener("click", () => {
+          document
+            .querySelectorAll(".lang")
+            .forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          const lang = copy[btn.dataset.lang];
+          document
+            .querySelectorAll("[data-i18n]")
+            .forEach((el) => (el.textContent = lang[el.dataset.i18n]));
+          document.documentElement.lang =
+            btn.dataset.lang === "ua" ? "uk" : "en";
+        }),
+      );
+    </script>
+  </body>
 </html>
